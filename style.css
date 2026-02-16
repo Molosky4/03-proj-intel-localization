@@ -1,0 +1,334 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@600;700&family=Inter:wght@400;500&display=swap');
+
+/* Reset some default styles */
+body, h1, h2, h3, p, div, section, header {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Inter', Arial, sans-serif;
+	background: #f7f7f7;
+	color: #222;
+	min-height: 100vh;
+}
+
+header {
+	background: linear-gradient(135deg, #0071c5 0%, #005fa3 100%);
+	color: #fff;
+	padding: 60px 0 48px 0; /* Increased top and bottom padding */
+	text-align: center;
+	margin-bottom: 32px; /* Extra space below header */
+}
+
+header img {
+	width: 120px;
+	margin-bottom: 28px; /* More space below logo */
+}
+
+header h1 {
+	font-family: 'IBM Plex Sans', Arial, sans-serif;
+	font-weight: 700;
+	font-size: 2.5rem;
+	margin-bottom: 24px; /* More space below heading */
+	letter-spacing: 1px;
+	text-align: center; /* Center the title */
+	text-transform: uppercase; /* Make all letters uppercase */
+}
+
+header p {
+	font-family: 'Inter', Arial, sans-serif;
+	font-weight: 400;
+	font-size: 1.1rem;
+	max-width: 600px;
+	margin: 0 auto;
+	line-height: 1.8; /* Slightly more line spacing */
+	margin-bottom: 12px; /* Extra space below paragraph */
+}
+
+section {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap; /* Prevent wrapping to new lines */
+	overflow-x: auto; /* Enable horizontal scrolling */
+	gap: 24px;
+	background: #f7f7f7;
+	padding: 36px 0 16px 0;
+	min-height: 320px;
+	scroll-snap-type: x mandatory; /* Snap cards into place when scrolling */
+	scrollbar-width: thin;
+	scrollbar-color: #0071c5 #e0e7ef;
+	scroll-behavior: smooth; /* Smooth horizontal scroll */
+}
+
+/* Center the timeline container and limit to 3 cards wide */
+.timeline-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 24px;
+  padding: 0 12px;
+  box-sizing: border-box;
+  /* Make sure container doesn't overflow on small screens */
+  max-width: 100vw;
+  overflow-x: auto;
+}
+
+/* Timeline section: show 3 cards at a time, enable horizontal scroll */
+section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 40px; /* More space between cards for modern look */
+  width: 100%;
+  max-width: 660px; /* 3 cards * 200px + 2 gaps * 30px */
+  margin: 0 auto;
+  overflow-x: auto;
+  background: #f7f7f7;
+  padding: 36px 0 16px 0;
+  min-height: 320px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: #0071c5 #e0e7ef;
+  scroll-behavior: smooth;
+}
+
+/* Each card in the timeline */
+.card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 24px 14px 24px 14px; /* More padding for text */
+  width: 250px;
+  min-width: 180px;
+  max-width: 90vw; /* Prevent card from overflowing on small screens */
+  min-height: 340px; /* Increased height for more text */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: box-shadow 0.2s, transform 0.2s, background 0.2s; /* Add background transition for smooth effect */
+  position: relative;
+  scroll-snap-align: start;
+  overflow: hidden;
+  box-sizing: border-box;
+  /* Make sure card never overflows the section */
+  word-break: break-word;
+}
+
+/* Card year */
+.card h2 {
+  font-family: 'IBM Plex Sans', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #0071c5;
+  margin-bottom: 2px;
+  word-break: break-word;
+  transition: opacity 0.3s; /* Fade in/out smoothly */
+}
+
+/* Card title */
+.card h3 {
+  font-family: 'IBM Plex Sans', Arial, sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #222;
+  margin-bottom: 10px;
+  word-break: break-word;
+  transition: opacity 0.3s; /* Fade in/out smoothly */
+  /* Keep title on one line and show ... if too long */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Card image */
+.card img {
+  width: 160px;
+  height: 160px;
+  max-width: 100%;
+  max-height: 160px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  background: #e0e7ef;
+  display: block;
+  align-self: center;
+}
+
+/* Card text and overlay: always wrap, never overflow */
+.card-overlay,
+.card h2,
+.card h3 {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Overlay text for each card, hidden by default */
+.card-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,113,197,0.92);
+  color: #fff;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 1rem;
+  border-radius: 10px;
+  padding: 24px 16px 16px 16px;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  overflow-y: visible; /* Show all overlay text, no scroll */
+}
+
+/* Show overlay on hover */
+.card:hover .card-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Fade in card text smoothly when hovered or focused */
+.card h2,
+.card h3 {
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+.card:hover h2,
+.card:hover h3,
+.card:focus h2,
+.card:focus h3 {
+  opacity: 1; /* Keep fully visible for smooth transition */
+}
+
+/* When the card overlay is shown, fade out the year and title */
+.card:hover .card-overlay ~ h2,
+.card:hover .card-overlay ~ h3,
+.card:focus .card-overlay ~ h2,
+.card:focus .card-overlay ~ h3 {
+  opacity: 0;
+}
+
+/* Instructions below timeline */
+body > p {
+  text-align: center;
+  color: #888;
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  margin: 18px 0 0 0;
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 750px) {
+  .timeline-container {
+    padding: 0 2vw;
+    max-width: 100vw;
+  }
+  section {
+    flex-direction: column; /* Stack cards vertically */
+    width: 100vw;
+    max-width: 100vw;
+    gap: 24px;
+    padding-left: 4px;
+    padding-right: 4px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  .card {
+    width: 98vw; /* Make cards/albums wider */
+    min-width: 0;
+    max-width: 100vw;
+    margin: 0 auto;
+    padding: 18px 2vw 18px 2vw; /* Reduce horizontal padding for more space */
+    min-height: 320px;
+  }
+  .card img {
+    width: 94vw; /* Image fills card width */
+    max-width: 100vw;
+    height: auto;
+    max-height: 180px;
+    margin-bottom: 10px;
+  }
+  .card h2,
+  .card h3,
+  .card-overlay {
+    font-size: 1rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+  }
+  .card-overlay {
+    padding: 18px 6vw 12px 6vw; /* More responsive padding for overlay text */
+    font-size: 0.98rem;
+  }
+}
+
+@media (max-width: 500px) {
+  header {
+    padding: 24px 0 18px 0;
+  }
+  header h1 {
+    font-size: 1.2rem;
+  }
+  section {
+    gap: 18px;
+    padding: 12px 2px 6px 2px;
+    flex-direction: column; /* Stack cards vertically */
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  .card {
+    width: 100vw;
+    min-width: 0;
+    max-width: 100vw;
+    padding: 8px 1vw 8px 1vw; /* Even less padding for smallest screens */
+    margin: 0 auto;
+    min-height: 220px;
+  }
+  .card img {
+    width: 96vw;
+    max-width: 100vw;
+    height: auto;
+    max-height: 120px;
+    margin-bottom: 10px;
+  }
+  .card h2,
+  .card h3,
+  .card-overlay {
+    font-size: 0.95rem;
+    max-width: 100%;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  .card-overlay {
+    padding: 12px 2vw 10px 2vw;
+    font-size: 0.95rem;
+  }
+}
+
+/* Card hover effect */
+.card:hover {
+  box-shadow: 0 8px 32px rgba(0,113,197,0.18); /* Stronger shadow on hover */
+  transform: translateY(-8px) scale(1.04);      /* Slightly lift and scale card */
+  background: #f0f8ff; /* Subtle light blue background on hover */
+  z-index: 2;
+}
+
+.header-underline {
+  /* Light blue line under the title */
+  width: 80px;
+  height: 4px;
+  margin: 0 auto 18px auto; /* Center and add space below */
+  background: #b3e3ff;
+  border-radius: 2px;
+}
